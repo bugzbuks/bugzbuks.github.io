@@ -1,0 +1,10 @@
+.nav-link {
+    color: darkblue;
+    display: inline-block;
+    a:hover{
+        background-color: lightblue;
+    }
+    a:active {
+        background-color: lightblue;
+    }
+}
