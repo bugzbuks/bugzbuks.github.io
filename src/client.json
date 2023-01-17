@@ -1,0 +1,36 @@
+{
+  "client": {
+    "id": "test-91f381d0-0e03-4b39-9031-d390cafa9c3d",
+    "name": "Peared Dev Test",
+    "environment": "test",
+    "url": "https://localhost:8080/",
+    "allowedScopes": [
+      "openid",
+      "client_paymentrequest"
+    ],
+    "redirectUrls": [
+      "https://localhost:8000/return",
+      "http://localhost:3000/return",
+      "https://localhost:8080/return",
+      "http://localhost:8080/return"
+    ],
+    "countryCodes": [
+      "ZA"
+    ],
+    "absoluteRefreshTokenLifetime": 0,
+    "accessTokenLifetime": 3600,
+    "allowedGrantTypes": [
+      "authorization_code",
+      "client_credentials"
+    ],
+    "authorizationCodeLifetime": 300,
+    "identityTokenLifetime": 300,
+    "refreshTokenUsage": 1,
+    "slidingRefreshTokenLifetime": 31536000
+  },
+  "secret": {
+    "id": "7143fda7-e6b0-4cec-b983-cefb53374f62",
+    "value": "zkv6wpWgZPz9QfEmEciDCtKxrAUire/LnwR27b4oSo5BHPQfAoKliVVw9bac5n49YT145QVm6Ovw2/X6saRe9A==",
+    "expiration": "2025-01-12T14:05:55.167+00:00"
+  }
+}

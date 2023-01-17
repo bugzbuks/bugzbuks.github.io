@@ -1,6 +1,7 @@
 ﻿import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import 'react-bootstrap';
 
 interface Props { }
 interface FormData {
@@ -32,22 +33,19 @@ const Form: React.FC<Props> = () => {
         <>
             <ToastContainer />
             <form onSubmit={handleSubmit}>
-                <label>
-                    Name:
-                    <input type="text" name="name" value={formData.name} onChange={handleChange} required />
-                </label>
-                <br />
-                <label>
-                    Cash Amount:
-                    <input type="number" name="cashAmount" value={formData.cashAmount} onChange={handleChange} required />
-                </label>
-                <br />
-                <label>
-                    Beneficiary:
-                    <input type="text" name="beneficiary" value={formData.beneficiary} onChange={handleChange} required />
-                </label>
-                <br />
-                <button type="submit">Submit</button>
+                <div className="form-group">
+                    <label htmlFor="name">Name:</label>
+                    <input type="text" className="form-control" id="name" name="name" value={formData.name} onChange={handleChange} required />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="cashAmount">Cash Amount:</label>
+                    <input type="number" className="form-control" id="cashAmount" name="cashAmount" value={formData.cashAmount} onChange={handleChange} required />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="beneficiary">Beneficiary:</label>
+                    <input type="text" className="form-control" id="beneficiary" name="beneficiary" value={formData.beneficiary} onChange={handleChange} required />
+                </div>
+                <button type="submit" className="btn btn-primary">Submit</button>
             </form>
         </>
     );

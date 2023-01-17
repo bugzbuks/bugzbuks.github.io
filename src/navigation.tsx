@@ -1,7 +1,6 @@
 ﻿import React from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import { Nav, Navbar } from 'react-bootstrap';
+import { Link, useLocation } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './navigation.css';
 
 const useIsActive = (path: string) => {
@@ -13,14 +12,21 @@ const Navigation = () => {
     const isHomeActive = useIsActive("/");
     const isTransferFundsActive = useIsActive("/transfer-funds");
     return (
-        <Nav className="justify-content-end" style={{ display: "flex" }}>
-            <Nav.Item style={{ paddingRight: "5px" }}>
-                <Nav.Link as={NavLink} to="/" active={isHomeActive}>Home</Nav.Link>
-            </Nav.Item>
-            <Nav.Item style={{ paddingRight: "5px" }}>
-                <Nav.Link as={NavLink} to="/transfer-funds" active={isTransferFundsActive}>Transfer Funds</Nav.Link>
-            </Nav.Item>
-        </Nav>
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <div className="container-fluid">
+                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li className="nav-item">
+                            <Link className="nav-link active={isHomeActive}" to="/">Home</Link> |{" "}
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link active={isTransferFundsActive}" to="transfer-funds">Transfer Funds</Link>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
     );
 };
 

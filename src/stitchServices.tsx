@@ -2,11 +2,11 @@
 /**
  * Retrieve the client access token
  **/
-export async function retrieveTokenUsingClientSecret(clientId: string, clientSecret: string, scopes: string[]) {
+export async function retrieveTokenUsingClientSecret(clientId: string, clientSecret: string) {
     const body = {
         grant_type: "client_credentials",
         client_id: clientId,
-        scope: scopes.join(" "),
+        scope: "client_paymentrequest",
         audience: "https://secure.stitch.money/connect/token",
         client_secret: clientSecret,
     };

@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src"
   ],
-  "SelectedNode": "\\package.json",
+  "SelectedNode": "\\src\\instantPayment.tsx",
   "PreviewInSolutionExplorer": false
 }
