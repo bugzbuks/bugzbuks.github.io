@@ -22,9 +22,9 @@ const TransferFunds: React.FC<Props> = (props:Props) => {
         cashAmount: 0,
         beneficiary: '',
     });
-    const [createPaymentRequest, { data }] = useMutation(CREATE_PAYMENT_REQUEST);
+    const [createPaymentRequest] = useMutation(CREATE_PAYMENT_REQUEST);
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         toast(`Creating transactions:\n Reference: ${formData.reference}, Cash Amount: ${formData.cashAmount}, Beneficiary: ${formData.beneficiary}`);
         let transactionReference = 'Donation #' + v4();
@@ -42,7 +42,7 @@ const TransferFunds: React.FC<Props> = (props:Props) => {
         };
         try {
             console.log("Creating the payment request");
-            createPaymentRequest({
+            /*createPaymentRequest({
                 variables: {
                     amount: paymentDetail.amount,
                     payerReference: paymentDetail.payerReference,
@@ -52,17 +52,48 @@ const TransferFunds: React.FC<Props> = (props:Props) => {
                     beneficiaryBankId: paymentDetail.beneficiaryBankId,
                     beneficiaryAccountNumber: paymentDetail.beneficiaryAccountNumber,
                 }
-            }).then(() => {
+            }).then((data) => {
                 if (data) {
                     console.log(JSON.stringify(data));
-                    toast('Payment successful');
+                    toast('Payment request initialized');
+                    if (data.clientPaymentInitiationRequestCreate) {
+                        const returnUrl = `?redirect_uri=https://localhost:8000/return`;//This is the only re-direct uri that works
+                        const url = data.clientPaymentInitiationRequestCreate.paymentInitiationRequest.url + returnUrl;
+                        console.log('Re-direct url = ', url);
+                        window.location.assign(url);
+                    }
                 }
                 else {
                     toast(`Error in executing payment request`);
                 }
             }).catch((error) => {
                 toast(`Error: ${error}`);
+            });*/
+            let response = await createPaymentRequest({
+                variables: {
+                    amount: paymentDetail.amount,
+                    payerReference: paymentDetail.payerReference,
+                    beneficiaryReference: paymentDetail.beneficiaryReference,
+                    externalReference: paymentDetail.externalReference,
+                    beneficiaryName: paymentDetail.beneficiaryName,
+                    beneficiaryBankId: paymentDetail.beneficiaryBankId,
+                    beneficiaryAccountNumber: paymentDetail.beneficiaryAccountNumber,
+                }
             });
+            //Check if the data object with the results from createPaymentRequest is populated
+            if (response.data) {
+                console.log(JSON.stringify(response.data));
+                toast('Payment request initialized');
+                if (response.data.clientPaymentInitiationRequestCreate) {
+                    const returnUrl = `?redirect_uri=https://localhost:8000/return`;//This is the only re-direct uri that works
+                    const url = response.data.clientPaymentInitiationRequestCreate.paymentInitiationRequest.url + returnUrl;
+                    console.log('Re-direct url = ', url);
+                    window.location.assign(url);
+                }
+            }
+            else {
+                toast(`Error in executing payment request`);
+            }
         } catch (err) {
             toast(`Error: ${err}`);
         }
