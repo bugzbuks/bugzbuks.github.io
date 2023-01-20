@@ -5,7 +5,7 @@ Author: James van der Walt
 
 The Project was developed the following:
 - NPM 7.6.0
-- Node 18.13.0
+- Node 16.9 (latest version does not doesn't support jest for tsting)
 - React 13.4.0
 - Apollo Client: 3.7.4
 

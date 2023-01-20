@@ -1,14 +1,14 @@
 ﻿import React, { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import { v4 } from 'uuid';
-import { useMutation } from '@apollo/client';
+import { MutationTuple, useMutation } from '@apollo/client';
 import { BankBeneficiaryBankId, CREATE_PAYMENT_REQUEST, ITransaction } from '../utils/stitchServices';
 import 'react-bootstrap';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 interface Props {
-    //Placeholder
+    createPaymentRequest?: any
 }
 
 interface FormData {
@@ -23,7 +23,10 @@ const TransferFunds: React.FC<Props> = (props:Props) => {
         cashAmount: 0,
         beneficiary: '',
     });
-    const [createPaymentRequest] = useMutation(CREATE_PAYMENT_REQUEST);
+
+    //Allow for props to enter the createPayment mutation. This allow for better decoupling
+    //Note: This code is example only and needs to be fleshed out more
+    const [createPaymentRequest] = props.createPaymentRequest ? useState(props.createPaymentRequest) : useMutation(CREATE_PAYMENT_REQUEST);
 
     const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -57,7 +60,8 @@ const TransferFunds: React.FC<Props> = (props:Props) => {
             });
             //Check if the data object with the results from createPaymentRequest is populated
             if (response.data) {
-                console.log(JSON.stringify(response.data));
+                //console.log(JSON.stringify(response.data));
+                console.log('Payment request initialized');
                 toast('Payment request initialized');
                 if (response.data.clientPaymentInitiationRequestCreate) {
                     const returnUrl = `?redirect_uri=https://localhost:8000/return`;//This is the only re-direct uri that works. Same for test cases online
@@ -103,20 +107,20 @@ const TransferFunds: React.FC<Props> = (props:Props) => {
         <div id="TransferFundsContainer">
             <ToastContainer />
             <h1>Please select the NGO you would like to support</h1>
-            <form onSubmit={handleSubmit}>
+            <form data-testid="form" onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="reference">Reference:</label>
-                    <input type="text" className="form-control" id="reference" name="reference"
+                    <input data-testid="reference" type="text" className="form-control" id="reference" name="reference"
                         maxLength={12} value={formData.reference} onChange={handleReferenceChange} required />
                 </div>
                 <div className="form-group">
                     <label htmlFor="cashAmount">Cash Amount:</label>
-                    <input type="number" className="form-control" id="cashAmount" name="cashAmount"
+                    <input data-testid="cashAmount" type="number" className="form-control" id="cashAmount" name="cashAmount"
                         value={formData.cashAmount} onChange={handleChange} required />
                 </div>
                 <div className="form-group">
                     <label htmlFor="beneficiary">Beneficiary:</label>
-                    <select className="form-control" id="beneficiary" name="beneficiary" value={formData.beneficiary} onChange={handleSelectChange}>
+                    <select data-testid="beneficiary" className="form-control" id="beneficiary" name="beneficiary" value={formData.beneficiary} onChange={handleSelectChange}>
                         <option value="Cape Refugee Centre">Cape Refugee Centre</option>
                         <option value="Rural Commu Init">Rural Community Initiative</option>
                         <option value="Academy For FS">Academy For Future Science</option>

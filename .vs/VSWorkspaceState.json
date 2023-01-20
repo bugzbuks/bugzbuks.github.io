@@ -2,8 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\assets"
+    "\\src\\assets",
+    "\\src\\components",
+    "\\src\\components\\__tests__"
   ],
-  "SelectedNode": "\\src\\App.css",
+  "SelectedNode": "\\src\\components\\__tests__\\TransferFunds.test.tsx",
   "PreviewInSolutionExplorer": false
 }
