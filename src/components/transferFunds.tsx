@@ -82,6 +82,16 @@ const TransferFunds: React.FC<Props> = (props:Props) => {
         });
     };
 
+    const handleReferenceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const inputValue = e.target.value;
+        if (inputValue.match(/^[a-zA-Z0-9]{0,12}$/)) {
+            setFormData({
+                ...formData,
+                [e.target.name]: e.target.value
+            });
+        }
+    };
+
     const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setFormData({
             ...formData,
@@ -96,11 +106,13 @@ const TransferFunds: React.FC<Props> = (props:Props) => {
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="reference">Reference:</label>
-                    <input type="text" className="form-control" id="reference" name="reference" value={formData.reference} onChange={handleChange} required />
+                    <input type="text" className="form-control" id="reference" name="reference"
+                        maxLength={12} value={formData.reference} onChange={handleReferenceChange} required />
                 </div>
                 <div className="form-group">
                     <label htmlFor="cashAmount">Cash Amount:</label>
-                    <input type="number" className="form-control" id="cashAmount" name="cashAmount" value={formData.cashAmount} onChange={handleChange} required />
+                    <input type="number" className="form-control" id="cashAmount" name="cashAmount"
+                        value={formData.cashAmount} onChange={handleChange} required />
                 </div>
                 <div className="form-group">
                     <label htmlFor="beneficiary">Beneficiary:</label>
