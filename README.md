@@ -1,6 +1,8 @@
 # Stitch Interview Demo
 Author: James van der Walt
 
+The project is hosted here: https://bugzbuks.github.io/
+
 # Overview
 
 The Project was developed the following:
