@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
 import { retrieveTokenUsingClientSecret } from './utils/stitchServices';
 
@@ -97,6 +97,7 @@ const App: React.FC<IProps> = () => {
                             <Routes>
                                 <Route path="/" element={<Home />} />
                                 <Route path="/transfer-funds" element={<TransferFunds />} />
+                                <Route path='*' element={<Navigate to='/' />} />
                             </Routes>
                         </div>
                     </div>
