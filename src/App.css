@@ -13,12 +13,12 @@
 
 
 .App-logo-new {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     margin: 15px;
     background-image: url('assets/logo.png');
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
 }
 
 .App-header {
@@ -39,7 +39,7 @@
     flex: 1;
     background-size: initial;
     background-position: top;
-    min-width: 200px;
+    min-width: 250px;
 }
 
 .App-main-body {
