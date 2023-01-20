@@ -127,5 +127,4 @@ const TransferFunds: React.FC<Props> = (props:Props) => {
         </div>
     );
 };
-
 export default TransferFunds;
