@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 interface Props {
-    createPaymentRequest?: any
+    createPaymentMutation?: any
 }
 
 interface FormData {
@@ -26,7 +26,11 @@ const TransferFunds: React.FC<Props> = (props:Props) => {
 
     //Allow for props to enter the createPayment mutation. This allow for better decoupling
     //Note: This code is example only and needs to be fleshed out more
-    const [createPaymentRequest] = props.createPaymentRequest ? useState(props.createPaymentRequest) : useMutation(CREATE_PAYMENT_REQUEST);
+    const [createPaymentRequest] = useMutation(CREATE_PAYMENT_REQUEST);
+/*    if (props.createPaymentMutation) {
+        createPaymentRequest = props.createPaymentMutation;
+    } else {
+    }*/
 
     const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();

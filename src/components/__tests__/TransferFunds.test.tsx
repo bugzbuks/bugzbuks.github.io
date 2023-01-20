@@ -60,7 +60,7 @@ describe('<TransferFunds />', () => {
     it('should submit the form and redirect to the returned url', async () => {
         const { getByTestId, findByText } = render(
             <MockedProvider mocks={mocks} addTypename={false}>
-                <TransferFunds createPaymentRequest={mockCreatePaymentRequest} />
+                <TransferFunds createPaymentMutation={mockCreatePaymentRequest} />
             </MockedProvider>
         );
         fireEvent.change(getByTestId('reference'), { target: { value: 'test' } });
