@@ -56,6 +56,8 @@
     padding-left: 20px;
     padding-right: 20px;
     background-color: #906070;
+    align-content:center;
+    align-self: center;
 }
 
 .App-navbar ul {
