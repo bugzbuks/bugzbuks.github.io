@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
-import Navigation from './navigation';
-import TransferFunds from './transferFunds';
-import Home from './home';
-import logo from './logo.png';
-import './App.css';
-import { retrieveTokenUsingClientSecret } from './stitchServices';
+import { retrieveTokenUsingClientSecret } from './utils/stitchServices';
+
+import Navigation from './components/navigation';
+import TransferFunds from './components/transferFunds';
+import Home from './components/home';
 import clientInfo from './client.json';
+import './App.css';
 
 interface IData {
     // your interface here
@@ -81,33 +81,25 @@ const App: React.FC<IProps> = () => {
     else { 
         return (
             <ApolloProvider client={client}>
-
                 <Router>
-                    <table style={{ width: "90%" }} >
-                        <tbody>
-                            <tr>
-                                <td style={{ width: "200px" }}>
-                                    <img src={logo} alt="Logo" style={{ width: "170px", height: "170px", padding: "20px" }} />
-                                </td>
-                                <td>
-                                    <Navigation />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div id='side-panel'></div>
-                                </td>
-                                <td>
-                                    <div id='main-body'>
-                                        <Routes>
-                                            <Route path="/" element={<Home />} />
-                                            <Route path="/transfer-funds" element={<TransferFunds />} />
-                                        </Routes>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div className="App">
+                        <header className="App-header">
+                            <div className="App-logo-new"></div>
+                            <nav className="App-navbar">
+                                <Navigation />
+                            </nav>
+                        </header>
+                        <div className="App-sidebar">
+                            <div id='side-panel'>
+                            </div>
+                        </div>
+                        <div className="App-main-body">
+                            <Routes>
+                                <Route path="/" element={<Home />} />
+                                <Route path="/transfer-funds" element={<TransferFunds />} />
+                            </Routes>
+                        </div>
+                    </div>
                 </Router>
             </ApolloProvider>
         );

@@ -1,10 +1,11 @@
-﻿import { useMutation } from '@apollo/client';
-import React, { useState } from 'react';
-import 'react-bootstrap';
+﻿import React, { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { v4 } from 'uuid';
-import { BankBeneficiaryBankId, CREATE_PAYMENT_REQUEST, ITransaction } from './stitchServices';
+import { useMutation } from '@apollo/client';
+import { BankBeneficiaryBankId, CREATE_PAYMENT_REQUEST, ITransaction } from '../utils/stitchServices';
+import 'react-bootstrap';
+import 'react-toastify/dist/ReactToastify.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 interface Props {
     //Placeholder
@@ -42,33 +43,7 @@ const TransferFunds: React.FC<Props> = (props:Props) => {
         };
         try {
             console.log("Creating the payment request");
-            /*createPaymentRequest({
-                variables: {
-                    amount: paymentDetail.amount,
-                    payerReference: paymentDetail.payerReference,
-                    beneficiaryReference: paymentDetail.beneficiaryReference,
-                    externalReference: paymentDetail.externalReference,
-                    beneficiaryName: paymentDetail.beneficiaryName,
-                    beneficiaryBankId: paymentDetail.beneficiaryBankId,
-                    beneficiaryAccountNumber: paymentDetail.beneficiaryAccountNumber,
-                }
-            }).then((data) => {
-                if (data) {
-                    console.log(JSON.stringify(data));
-                    toast('Payment request initialized');
-                    if (data.clientPaymentInitiationRequestCreate) {
-                        const returnUrl = `?redirect_uri=https://localhost:8000/return`;//This is the only re-direct uri that works
-                        const url = data.clientPaymentInitiationRequestCreate.paymentInitiationRequest.url + returnUrl;
-                        console.log('Re-direct url = ', url);
-                        window.location.assign(url);
-                    }
-                }
-                else {
-                    toast(`Error in executing payment request`);
-                }
-            }).catch((error) => {
-                toast(`Error: ${error}`);
-            });*/
+           
             let response = await createPaymentRequest({
                 variables: {
                     amount: paymentDetail.amount,
@@ -85,7 +60,7 @@ const TransferFunds: React.FC<Props> = (props:Props) => {
                 console.log(JSON.stringify(response.data));
                 toast('Payment request initialized');
                 if (response.data.clientPaymentInitiationRequestCreate) {
-                    const returnUrl = `?redirect_uri=https://localhost:8000/return`;//This is the only re-direct uri that works
+                    const returnUrl = `?redirect_uri=https://localhost:8000/return`;//This is the only re-direct uri that works. Same for test cases online
                     const url = response.data.clientPaymentInitiationRequestCreate.paymentInitiationRequest.url + returnUrl;
                     console.log('Re-direct url = ', url);
                     window.location.assign(url);
@@ -107,9 +82,17 @@ const TransferFunds: React.FC<Props> = (props:Props) => {
         });
     };
 
+    const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
     return (
         <div id="TransferFundsContainer">
             <ToastContainer />
+            <h1>Please select the NGO you would like to support</h1>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="reference">Reference:</label>
@@ -121,9 +104,13 @@ const TransferFunds: React.FC<Props> = (props:Props) => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="beneficiary">Beneficiary:</label>
-                    <input type="text" className="form-control" id="beneficiary" name="beneficiary" value={formData.beneficiary} onChange={handleChange} required />
+                    <select className="form-control" id="beneficiary" name="beneficiary" value={formData.beneficiary} onChange={handleSelectChange}>
+                        <option value="Cape Refugee Centre">Cape Refugee Centre</option>
+                        <option value="Rural Commu Init">Rural Community Initiative</option>
+                        <option value="Academy For FS">Academy For Future Science</option>
+                    </select>
                 </div>
-                <button style={{ paddingTop: "5px" }} type="submit" className="btn btn-primary">Submit</button>
+                <button style={{ marginTop: "5px" }} type="submit" className="btn btn-secondary">Submit</button>
             </form>
         </div>
     );
